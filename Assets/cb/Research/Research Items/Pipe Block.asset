@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed06e6025bbde5f40a8330b82deff657, type: 3}
+  m_Name: Pipe Block
+  m_EditorClassIdentifier: 
+  ID: 2
+  DisplayHologram: {fileID: 2298008226775737075, guid: 6e817903174744f44b37d62d08c535c4, type: 3}
+  TotalSeconds: 600

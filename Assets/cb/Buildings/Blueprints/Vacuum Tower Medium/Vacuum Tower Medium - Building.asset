@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b6570736e2e5e4e884815f17a09000, type: 3}
+  m_Name: Vacuum Tower Medium - Building
+  m_EditorClassIdentifier: 
+  Blueprint: {fileID: 11400000, guid: f483911906b37e64fab1600e8bc23ad7, type: 2}
+  RequiredResearch: {fileID: 0}
+  BuildingHologramPrototype: {fileID: 5732999112400016412, guid: 009c93f527ff5aa4394f4dbbda33951d, type: 3}
+  LayoutHologramPrototype: {fileID: 3504990259752790253, guid: 9e433125f8593aa44b9480e67a8a50a1, type: 3}
+  BuildingPrototype: {fileID: 2416147607681336258, guid: 5ee69a08d25b38a4cb5d0d79f460cae5, type: 3}
+  BuildingHologramOffsetFromKeyBlock: {x: 1, y: 0, z: 1.5}
+  LayoutOffsetFromKeyBlock: {x: 0, y: 0, z: 0}
+  BuildingOffsetFromKeyBlock: {x: 1, y: 0, z: 1.5}
