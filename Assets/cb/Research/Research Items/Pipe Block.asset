@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Pipe Block
   m_EditorClassIdentifier: 
   ID: 2
+  Group: starter
+  ResearchRequired: {fileID: 11400000, guid: 9484aa50ae845e741abc1fd030d7b7bc, type: 2}
   DisplayHologram: {fileID: 2298008226775737075, guid: 6e817903174744f44b37d62d08c535c4, type: 3}
-  TotalSeconds: 600
+  TotalSeconds: 300

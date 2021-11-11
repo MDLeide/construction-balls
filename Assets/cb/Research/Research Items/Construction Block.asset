@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Construction Block
   m_EditorClassIdentifier: 
   ID: 1
+  Group: starter
+  ResearchRequired: {fileID: 0}
   DisplayHologram: {fileID: 8182129536061653523, guid: 27f6ddf0804c8b64184a630262ae1d9d, type: 3}
-  TotalSeconds: 120
+  TotalSeconds: 300

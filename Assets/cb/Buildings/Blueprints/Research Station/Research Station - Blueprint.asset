@@ -1,0 +1,421 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468f5ffb4aaf8c34ab7ef717913315e3, type: 3}
+  m_Name: Research Station - Blueprint
+  m_EditorClassIdentifier: 
+  _package:
+    Dimensions: {x: 8, y: 2, z: 4}
+    Cells:
+    - Location: {x: 0, y: 0, z: 0}
+      Cell:
+        Location: {x: 0, y: 0, z: 0}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 0, y: 0, z: 1}
+      Cell:
+        Location: {x: 0, y: 0, z: 1}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 0, y: 0, z: 2}
+      Cell:
+        Location: {x: 0, y: 0, z: 2}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 0, y: 0, z: 3}
+      Cell:
+        Location: {x: 0, y: 0, z: 3}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 0, y: 1, z: 0}
+      Cell:
+        Location: {x: 0, y: 1, z: 0}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 0, y: 1, z: 1}
+      Cell:
+        Location: {x: 0, y: 1, z: 1}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 0, y: 1, z: 2}
+      Cell:
+        Location: {x: 0, y: 1, z: 2}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 0, y: 1, z: 3}
+      Cell:
+        Location: {x: 0, y: 1, z: 3}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 1, y: 0, z: 0}
+      Cell:
+        Location: {x: 1, y: 0, z: 0}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 1, y: 0, z: 1}
+      Cell:
+        Location: {x: 1, y: 0, z: 1}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 1, y: 0, z: 2}
+      Cell:
+        Location: {x: 1, y: 0, z: 2}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 1, y: 0, z: 3}
+      Cell:
+        Location: {x: 1, y: 0, z: 3}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 1, y: 1, z: 0}
+      Cell:
+        Location: {x: 1, y: 1, z: 0}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 1, y: 1, z: 1}
+      Cell:
+        Location: {x: 1, y: 1, z: 1}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 1, y: 1, z: 2}
+      Cell:
+        Location: {x: 1, y: 1, z: 2}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 1, y: 1, z: 3}
+      Cell:
+        Location: {x: 1, y: 1, z: 3}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 2, y: 0, z: 0}
+      Cell:
+        Location: {x: 2, y: 0, z: 0}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 2, y: 0, z: 1}
+      Cell:
+        Location: {x: 2, y: 0, z: 1}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 2, y: 0, z: 2}
+      Cell:
+        Location: {x: 2, y: 0, z: 2}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 2, y: 0, z: 3}
+      Cell:
+        Location: {x: 2, y: 0, z: 3}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 2, y: 1, z: 0}
+      Cell:
+        Location: {x: 2, y: 1, z: 0}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 2, y: 1, z: 1}
+      Cell:
+        Location: {x: 2, y: 1, z: 1}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 2, y: 1, z: 2}
+      Cell:
+        Location: {x: 2, y: 1, z: 2}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 2, y: 1, z: 3}
+      Cell:
+        Location: {x: 2, y: 1, z: 3}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 3, y: 0, z: 0}
+      Cell:
+        Location: {x: 3, y: 0, z: 0}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 3, y: 0, z: 1}
+      Cell:
+        Location: {x: 3, y: 0, z: 1}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 3, y: 0, z: 2}
+      Cell:
+        Location: {x: 3, y: 0, z: 2}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 3, y: 0, z: 3}
+      Cell:
+        Location: {x: 3, y: 0, z: 3}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 3, y: 1, z: 0}
+      Cell:
+        Location: {x: 3, y: 1, z: 0}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 3, y: 1, z: 1}
+      Cell:
+        Location: {x: 3, y: 1, z: 1}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 3, y: 1, z: 2}
+      Cell:
+        Location: {x: 3, y: 1, z: 2}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 3, y: 1, z: 3}
+      Cell:
+        Location: {x: 3, y: 1, z: 3}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 4, y: 0, z: 0}
+      Cell:
+        Location: {x: 4, y: 0, z: 0}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 4, y: 0, z: 1}
+      Cell:
+        Location: {x: 4, y: 0, z: 1}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 4, y: 0, z: 2}
+      Cell:
+        Location: {x: 4, y: 0, z: 2}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 4, y: 0, z: 3}
+      Cell:
+        Location: {x: 4, y: 0, z: 3}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 4, y: 1, z: 0}
+      Cell:
+        Location: {x: 4, y: 1, z: 0}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 4, y: 1, z: 1}
+      Cell:
+        Location: {x: 4, y: 1, z: 1}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 4, y: 1, z: 2}
+      Cell:
+        Location: {x: 4, y: 1, z: 2}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 4, y: 1, z: 3}
+      Cell:
+        Location: {x: 4, y: 1, z: 3}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 5, y: 0, z: 0}
+      Cell:
+        Location: {x: 5, y: 0, z: 0}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 5, y: 0, z: 1}
+      Cell:
+        Location: {x: 5, y: 0, z: 1}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 5, y: 0, z: 2}
+      Cell:
+        Location: {x: 5, y: 0, z: 2}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 5, y: 0, z: 3}
+      Cell:
+        Location: {x: 5, y: 0, z: 3}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 5, y: 1, z: 0}
+      Cell:
+        Location: {x: 5, y: 1, z: 0}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 5, y: 1, z: 1}
+      Cell:
+        Location: {x: 5, y: 1, z: 1}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 5, y: 1, z: 2}
+      Cell:
+        Location: {x: 5, y: 1, z: 2}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 5, y: 1, z: 3}
+      Cell:
+        Location: {x: 5, y: 1, z: 3}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 6, y: 0, z: 0}
+      Cell:
+        Location: {x: 6, y: 0, z: 0}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 6, y: 0, z: 1}
+      Cell:
+        Location: {x: 6, y: 0, z: 1}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 6, y: 0, z: 2}
+      Cell:
+        Location: {x: 6, y: 0, z: 2}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 6, y: 0, z: 3}
+      Cell:
+        Location: {x: 6, y: 0, z: 3}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 6, y: 1, z: 0}
+      Cell:
+        Location: {x: 6, y: 1, z: 0}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 6, y: 1, z: 1}
+      Cell:
+        Location: {x: 6, y: 1, z: 1}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 6, y: 1, z: 2}
+      Cell:
+        Location: {x: 6, y: 1, z: 2}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 6, y: 1, z: 3}
+      Cell:
+        Location: {x: 6, y: 1, z: 3}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 7, y: 0, z: 0}
+      Cell:
+        Location: {x: 7, y: 0, z: 0}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 7, y: 0, z: 1}
+      Cell:
+        Location: {x: 7, y: 0, z: 1}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 7, y: 0, z: 2}
+      Cell:
+        Location: {x: 7, y: 0, z: 2}
+        IsEmpty: 0
+        BuildingBlockColorRequired: 0
+    - Location: {x: 7, y: 0, z: 3}
+      Cell:
+        Location: {x: 7, y: 0, z: 3}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 7, y: 1, z: 0}
+      Cell:
+        Location: {x: 7, y: 1, z: 0}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 7, y: 1, z: 1}
+      Cell:
+        Location: {x: 7, y: 1, z: 1}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 7, y: 1, z: 2}
+      Cell:
+        Location: {x: 7, y: 1, z: 2}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+    - Location: {x: 7, y: 1, z: 3}
+      Cell:
+        Location: {x: 7, y: 1, z: 3}
+        IsEmpty: 1
+        BuildingBlockColorRequired: 0
+  Cells:
+  - Location: {x: 0, y: 0, z: 0}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 0, y: 0, z: 1}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 0, y: 0, z: 2}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 1, y: 0, z: 0}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 1, y: 0, z: 1}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 1, y: 0, z: 2}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 1, y: 1, z: 1}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 2, y: 0, z: 0}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 2, y: 0, z: 1}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 2, y: 0, z: 2}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 2, y: 1, z: 1}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 3, y: 0, z: 0}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 3, y: 0, z: 1}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 3, y: 0, z: 2}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 3, y: 1, z: 1}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 4, y: 0, z: 1}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 4, y: 0, z: 2}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 5, y: 0, z: 0}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 5, y: 0, z: 1}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 5, y: 0, z: 2}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 5, y: 0, z: 3}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 6, y: 0, z: 0}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 6, y: 0, z: 1}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 6, y: 0, z: 2}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 6, y: 0, z: 3}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 7, y: 0, z: 1}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  - Location: {x: 7, y: 0, z: 2}
+    IsEmpty: 0
+    BuildingBlockColorRequired: 0
+  Dimensions: {x: 8, y: 2, z: 4}
+  KeyBlockLocation: {x: 0, y: 0, z: 0}

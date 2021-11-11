@@ -1,4 +1,5 @@
 ﻿using System;
+using Cashew;
 using Cashew.Utility.Extensions;
 using Sirenix.OdinInspector;
 using UnityEditor;
@@ -6,19 +7,25 @@ using UnityEngine;
 
 class KeyBuildingBlock : MonoBehaviour
 {
-    public int ScanRange = 10;
-    public int ScanHeight = 10;
+    const int ScanRange = 50;
+    const int ScanHeight = 50;
 
     [Button]
     public Blueprint MakeBlueprint()
     {
         var blockArray = BuildBlockArray();
         var trimmedArray = TrimBlockArray(blockArray, out var min);
-        return Blueprint.FromBlockArray(trimmedArray, new Vector3Int(ScanRange - min.x, 0, ScanRange - min.z));
+        var keyBlockLocation = new Vector3Int(ScanRange - min.x, 0, ScanRange - min.z);
+        return Blueprint.FromBlockArray(trimmedArray, keyBlockLocation);
     }
 
     BuildingBlock[,,] BuildBlockArray()
     {
+        if (Math.Abs(transform.position.y) > float.Epsilon)
+            throw new InvalidOperationException("Key Block must be on the ground.");
+
+        var grid = new GridA(Game.UnitDistance, transform.position);
+
         var array = new BuildingBlock[ScanRange * 2 + 1, ScanHeight, ScanRange * 2 + 1];
 
         var objects = Physics.OverlapBox(
@@ -33,17 +40,13 @@ class KeyBuildingBlock : MonoBehaviour
             var buildingBlock = obj.transform.GetComponentAnywhere<BuildingBlock>();
             if (buildingBlock == null)
                 continue;
-
-            var offset = buildingBlock.transform.position - transform.position;
-            var offsetInt = new Vector3Int(
-                (int) (offset.x / Game.UnitDistance),
-                (int) (offset.y / Game.UnitDistance),
-                (int) (offset.z / Game.UnitDistance));
+            
+            var cell = grid.GetCell(buildingBlock.transform.position);
 
             var address = new Vector3Int(
-                offsetInt.x + ScanRange,
-                offsetInt.y,
-                offsetInt.z + ScanRange);
+                cell.x + ScanRange,
+                cell.y,
+                cell.z + ScanRange);
 
             array[address.x, address.y, address.z] = buildingBlock;
         }
@@ -84,7 +87,7 @@ class KeyBuildingBlock : MonoBehaviour
         
         var final = new BuildingBlock[
             max.x - min.x + 1,
-            max.y + 1,
+            max.y - min.y + 1,
             max.z - min.z + 1];
 
         for (int x = 0; x < final.GetLength(0); x++)

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 enum PickUpType
 {
+    Static = -100,
     Default = 0,
     BlueBall = 1,
     RedBall = 2,
@@ -19,6 +20,7 @@ enum PickUpType
     OpenBlock = 201,
     PipeBlock = 202,
     AccelBlock = 203,
+    TubeBlock = 204,
 
     StraightHalfPipe = 301,
     InclinedHalfPipe = 302,

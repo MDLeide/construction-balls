@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed06e6025bbde5f40a8330b82deff657, type: 3}
+  m_Name: Small Ground Collector
+  m_EditorClassIdentifier: 
+  ID: -1
+  Group: tier one
+  ResearchRequired: {fileID: 11400000, guid: 942fc20d74dab4649aa15033c6831011, type: 2}
+  DisplayHologram: {fileID: 5543435623016714921, guid: 4fbb3b947285e22408c4787be208d13f, type: 3}
+  TotalSeconds: 600

@@ -10,6 +10,8 @@ using UnityEngine;
 [SelectionBase]
 class ItemSpawner : MonoBehaviour
 {
+    Pallet _pallet;
+
     int _count;
 
     public GameObject ObjectToSpawn;
@@ -17,21 +19,46 @@ class ItemSpawner : MonoBehaviour
     public float PalletRange = 10;
     public LayerMask PalletLayer;
 
-    public void Spawn()
+    public GameObject Spawn()
     {
         var obj = Instantiate(ObjectToSpawn, transform.position, transform.rotation);
-        obj.name += $" [{_count++}]";
+        obj.name += $" [{++_count}]";
+
+        var block = obj.GetComponentAnywhere<Block>();
+        if (block != null)
+            if (block.IdText != null)
+                block.IdText.text = _count.ToString();
+
         if (!TryToPlaceOnPallet)
-            return;
+            return obj;
 
         var pickup = obj.GetComponentAnywhere<PickUp>();
         if (pickup == null)
-            return;
-     
+            return obj;
+
+        if (_pallet != null && PalletIsValid(_pallet) && _pallet.CanPlace(pickup))
+        {
+            _pallet.Place(pickup);
+            return obj;
+        }
+
+        _pallet = null;
         var pallets = GetPalletsInRange();
         foreach (var pallet in pallets)
+        {
             if (pallet.Place(pickup))
-                return;
+            {
+                _pallet = pallet;
+                return obj;
+            }
+        }
+
+        return obj;
+    }
+
+    bool PalletIsValid(Pallet pallet)
+    {
+        return (pallet.transform.position - transform.position).magnitude <= PalletRange;
     }
 
     IEnumerable<Pallet> GetPalletsInRange()

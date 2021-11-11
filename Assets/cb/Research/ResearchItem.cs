@@ -4,6 +4,8 @@
 class ResearchItem : ScriptableObject
 {
     public int ID;
+    public string Group = "default";
+    public ResearchItem ResearchRequired;
     public Hologram DisplayHologram;
-    public float TotalSeconds;
+    public float TotalSeconds = 600;
 }

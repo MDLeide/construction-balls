@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 
 class Research : MonoBehaviour
 {
+    const string AssetPath = "Assets/cb/Research/Research Items";
+
     public static Research Instance;
 
     public EventHandler<ResearchEventArgs> ItemResearched;
@@ -19,8 +22,25 @@ class Research : MonoBehaviour
     {
         Instance = this;
 
+        AllResearch = GetResearchItems();
+
         ResearchWrappers = AllResearch.Select(p => new ResearchItemWrapper() {ResearchItem = p})
             .ToDictionary(k => k.ResearchItem, v => v);
+
+        foreach (var research in AllResearch)
+        {
+            if (research.ID <= 0 && Game.Instance.WarnOnInvalidID)
+                Debug.LogWarning($"Research has invalid ID: {research.name}");
+            if (research.DisplayHologram == null && Game.Instance.WarnOnMissingHologram)
+                Debug.LogWarning($"Research is missing hologram: {research.name}");
+        }
+
+        // auto research test group stuff
+        foreach (var kvp in ResearchWrappers)
+        {
+            if (kvp.Key.Group == "test")
+                ResearchItem(kvp.Value);
+        }
     }
 
     public void ResearchItem(ResearchItemWrapper item)
@@ -64,7 +84,10 @@ class Research : MonoBehaviour
 
     public IEnumerable<ResearchItemWrapper> GetResearchable()
     {
-        return ResearchWrappers.Select(p => p.Value).Where(p => !p.IsResearched);
+        return ResearchWrappers.Select(p => p.Value)
+            .Where(
+                p => !p.IsResearched && (p.ResearchItem.ResearchRequired == null ||
+                                         IsResearched(p.ResearchItem.ResearchRequired)));
     }
 
     public bool IsResearched(ResearchItem research)
@@ -75,5 +98,10 @@ class Research : MonoBehaviour
     public bool IsResearched(ResearchItemWrapper research)
     {
         return research.IsResearched;
+    }
+
+    ResearchItem[] GetResearchItems()
+    {
+        return AssetDatabaseHelper.LoadAssetsFromFolder<ResearchItem>(AssetPath);
     }
 }

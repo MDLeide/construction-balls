@@ -44,6 +44,8 @@ class Interactable : MonoBehaviour
     public bool IsCoolingDown;
     // set by users to indicate the button is turned off
     public bool IsAvailable = true;
+    // performs same function as IsAvailable
+    public Func<bool> CanPush = () => true;
 
     public event EventHandler<InteractablePushedEventArgs> InteractedWith;
     public event EventHandler<InteractablePushedEventArgs> Pushed;
@@ -97,7 +99,7 @@ class Interactable : MonoBehaviour
             return;
         }
 
-        if (!IsAvailable)
+        if (!IsAvailable || !CanPush())
         {
             if (PlayAnimation)
                 PushFail();

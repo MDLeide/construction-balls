@@ -38,6 +38,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2826965651647092510}
     m_Modifications:
+    - target: {fileID: 7314402890632303345, guid: 12408191a59705b4988f9d78f1f1cb57, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7584223938725144825, guid: 12408191a59705b4988f9d78f1f1cb57, type: 3}
       propertyPath: m_Name
       value: vacuum tower medium

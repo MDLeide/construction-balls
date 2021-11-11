@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Blue Building Block
   m_EditorClassIdentifier: 
   ID: 100
+  Group: block
   ResearchRequired: {fileID: 11400000, guid: c941a272f9f6c0c4db9cb667185b6bb3, type: 2}
   CraftPrototype: {fileID: 6052348269095930831, guid: 7ccf942657046514bbdf834ab626b330, type: 3}
   CraftTime: 15

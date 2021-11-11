@@ -69,4 +69,21 @@ class Ball : MonoBehaviour
         Collider.enabled = true;
         MeshRenderer.enabled = true;
     }
+
+    public static BallColor[] AllColors { get; } = new[]
+    {
+        BallColor.Blue,
+        BallColor.Red,
+        BallColor.Yellow,
+        BallColor.Green,
+        BallColor.Purple,
+        BallColor.Orange
+    };
+
+    public static Ball Spawn(BallColor color, Vector3 position)
+    {
+        var ball = Instantiate(Game.Instance.BallPrototypes.GetPrototype(color));
+        ball.transform.position = position;
+        return ball;
+    }
 }

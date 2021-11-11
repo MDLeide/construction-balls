@@ -9,7 +9,7 @@ using UnityEngine;
 
 class VacuumTower : MonoBehaviour
 {
-    public PipeBlock PipeBlock;
+    public PBlock PipeBlock;
     public Pipe Pipe;
 
     void Update()

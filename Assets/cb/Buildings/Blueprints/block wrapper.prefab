@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6906825862135316624}
   - component: {fileID: 8717015889052808449}
+  - component: {fileID: 7223913736587212738}
   m_Layer: 0
   m_Name: block wrapper
   m_TagString: Untagged
@@ -44,6 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2375a469bff502a428bc87024f21708b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &7223913736587212738
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6906825862135316627}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Center: {x: 0.25, y: 0.25, z: 0.25}
 --- !u!1001 &6906825862205496732
 PrefabInstance:
   m_ObjectHideFlags: 0

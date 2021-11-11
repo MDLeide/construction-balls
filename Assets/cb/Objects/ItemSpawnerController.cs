@@ -11,6 +11,11 @@ class ItemSpawnerController : MonoBehaviour
     public int ObjectsToCraft = 50;
     public int ObjectsCrafted;
 
+    void Start()
+    {
+        //_next = Random.value * 3;
+    } 
+
     void Update()
     {
         if (_next <= Time.time && ObjectsCrafted < ObjectsToCraft)

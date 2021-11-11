@@ -5,6 +5,7 @@ using UnityEngine;
 class CraftingRecipe : ScriptableObject
 {
     public int ID;
+    public string Group = "default";
     public ResearchItem ResearchRequired;
     public GameObject CraftPrototype;
     public float CraftTime;

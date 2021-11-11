@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cashew.Utility.Extensions;
 using JetBrains.Annotations;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 class Blueprint : ScriptableObject, ISerializationCallbackReceiver
@@ -14,7 +16,8 @@ class Blueprint : ScriptableObject, ISerializationCallbackReceiver
     public BlueprintCell[,,] CellArray;
     public List<BlueprintCell> Cells;
     public Vector3Int Dimensions;
-    public Vector3Int KeyBlockLocation;
+    [FormerlySerializedAs("KeyBlockLocation")]
+    public Vector3Int KeyBlockPosition;
 
     [Button]
     public void InitializeArray()
@@ -35,7 +38,39 @@ class Blueprint : ScriptableObject, ISerializationCallbackReceiver
         }
     }
 
-    public bool MatchesBlockArray(BuildingBlock[,,] blockArray)
+    public Vector3 GetHologramPosition(BlueprintInstance instance)
+    {
+        var offset = instance.Building.BuildingHologramOffsetFromKeyBlock;
+
+        for (int i = 0; i < instance.Rotations; i++)
+            offset = Rotate(offset);
+
+        return instance.KeyBlock.NetworkBlock.Block.TargetPosition -
+               new Vector3(Game.HalfUnitDistance, 0, Game.HalfUnitDistance) +
+               offset;
+    }
+
+    public bool MatchesBlockArray(NetworkBlock[,,] blockArray, out int rotations, out BuildingBlock keyBlock)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            rotations = i;
+            if (MatchesBlockArrayImpl(blockArray))
+            {
+                keyBlock = blockArray[KeyBlockPosition.x, KeyBlockPosition.y, KeyBlockPosition.z]
+                    .GetComponentAnywhere<BuildingBlock>();
+                return true;
+            }
+
+            blockArray = Rotate(blockArray);
+        }
+
+        rotations = 0;
+        keyBlock = null;
+        return false;
+    }
+
+    bool MatchesBlockArrayImpl(NetworkBlock[,,] blockArray)
     {
         if (blockArray.GetLength(0) != Dimensions.x ||
             blockArray.GetLength(1) != Dimensions.y ||
@@ -43,20 +78,89 @@ class Blueprint : ScriptableObject, ISerializationCallbackReceiver
             return false;
 
         for (int x = 0; x < Dimensions.x; x++)
+        for (int y = 0; y < Dimensions.y; y++)
+        for (int z = 0; z < Dimensions.z; z++)
         {
-            for (int y = 0; y < Dimensions.y; y++)
+            BuildingBlock block = null;
+            if (blockArray[x, y, z] != null)
+                block = blockArray[x, y, z].GetComponentAnywhere<BuildingBlock>();
+
+            if (CellArray[x, y, z].IsEmpty && block == null)
+                continue;
+
+            if (CellArray[x, y, z].IsEmpty && block != null)
+                return false;
+
+            if (!CellArray[x, y, z].IsEmpty && block == null)
+                return false;
+
+            if (!CellArray[x, y, z].IsEmpty && block != null &&
+                CellArray[x, y, z].BuildingBlockColorRequired != block.Color)
+                return false;
+        }
+
+        return true;
+    }
+
+    Vector3 Rotate(Vector3 pos)
+    {
+        // top right -> bottom left
+        if (pos.x >= 0 && pos.z >= 0)
+        {
+            return new Vector3(
+                Mathf.Abs(pos.z), 
+                pos.y, 
+                -Mathf.Abs(pos.x));
+        }
+        // bottom right -> bottom left
+        if (pos.x >= 0 && pos.z <= 0)
+        {
+            return new Vector3(
+                -Mathf.Abs(pos.z),
+                pos.y, 
+                -Mathf.Abs(pos.x));
+        }
+        // bottom left -> top left
+        if (pos.x <= 0 && pos.z <= 0)
+        {
+            return new Vector3(
+                -Mathf.Abs(pos.z),
+                pos.y,
+                Mathf.Abs(pos.x));
+        }
+        // top left -> top right
+        if (pos.x <= 0 && pos.y >= 0)
+        {
+            return new Vector3(
+                Mathf.Abs(pos.z),
+                pos.y,
+                Mathf.Abs(pos.x));
+        }
+
+        throw new InvalidOperationException();
+    }
+
+    Vector3Int RotatePosition(Vector3Int pos, Vector3Int originalSize)
+    {
+        return new Vector3Int(pos.z, pos.y, originalSize.x - pos.x - 1);
+    }
+
+    static NetworkBlock[,,] Rotate(NetworkBlock[,,] array)
+    {
+        var rot = new NetworkBlock[array.GetLength(2), array.GetLength(1), array.GetLength(0)];
+
+        for (int x = 0; x < array.GetLength(0); x++)
+        {
+            for (int y = 0; y < array.GetLength(1); y++)
             {
-                for (int z = 0; z < Dimensions.z; z++)
+                for (int z = 0; z < array.GetLength(2); z++)
                 {
-                    if (CellArray[x, y, z].IsEmpty && blockArray[x, y, z] != null ||
-                        !CellArray[x, y, z].IsEmpty &&
-                        CellArray[x, y, z].BuildingBlockColorRequired != blockArray[x, y, z].Color)
-                        return false;
+                    rot[z, y, x] = array[x, y, array.GetLength(2) - z - 1];
                 }
             }
         }
 
-        return true;
+        return rot;
     }
 
     public static Blueprint FromBlockArray(BuildingBlock[,,] blockArray, Vector3Int keyBlockLocation)
@@ -66,7 +170,7 @@ class Blueprint : ScriptableObject, ISerializationCallbackReceiver
             blockArray.GetLength(0),
             blockArray.GetLength(1),
             blockArray.GetLength(2));
-        bp.KeyBlockLocation = keyBlockLocation;
+        bp.KeyBlockPosition = keyBlockLocation;
         bp.CellArray = new BlueprintCell[bp.Dimensions.x, bp.Dimensions.y, bp.Dimensions.z];
         bp.Cells = new List<BlueprintCell>();
 
@@ -97,6 +201,7 @@ class Blueprint : ScriptableObject, ISerializationCallbackReceiver
         CellArray = _package.Deserialize();
     }
 
+    // used to support multi-dim array serialization
     [Serializable]
     public class BlueprintPackage
     {

@@ -323,12 +323,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9697a1903fe9ab749a019a7a22dfb765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DrawTargetedCell: 1
   LayerMask:
     serializedVersion: 2
-    m_Bits: 409
+    m_Bits: 10649
   LookTransform: {fileID: 2882999002900111809}
   Range: 5
   HitObject: {fileID: 0}
+  CollidedObject: {fileID: 0}
   PalletInSights: {fileID: 0}
   PickupInSights: {fileID: 0}
   PanelInSights: {fileID: 0}
@@ -351,8 +353,8 @@ MonoBehaviour:
   Controller: {fileID: 2882999001189594774}
   HoldPosition: {fileID: 2882999002366025483}
   HeldItemRotation: {fileID: 2882999001454636178}
-  ThrowPowerMin: 0
-  ThrowPowerMax: 0
+  ThrowPowerMin: 100
+  ThrowPowerMax: 350
   HeldObject: {fileID: 0}
 --- !u!114 &2882999001189594779
 MonoBehaviour:
@@ -388,6 +390,7 @@ MonoBehaviour:
   Hands: {fileID: 2882999001189594780}
   PlayerController: {fileID: 2882999001189594774}
   Terminal: {fileID: 0}
+  Tablet: {fileID: 0}
   GrabFromTop: {fileID: 6947209923573829811, guid: 4bf5e816605deb74e8bdd589446dbcf4, type: 3}
   GrabAction: {fileID: 1035434246539698691, guid: 4bf5e816605deb74e8bdd589446dbcf4, type: 3}
   ReleaseAction: {fileID: -3822979634696089655, guid: 4bf5e816605deb74e8bdd589446dbcf4, type: 3}
@@ -395,6 +398,7 @@ MonoBehaviour:
   PlaceAction: {fileID: 7607399667903007959, guid: 4bf5e816605deb74e8bdd589446dbcf4, type: 3}
   TakeAction: {fileID: 1465733764580419406, guid: 4bf5e816605deb74e8bdd589446dbcf4, type: 3}
   InteractAction: {fileID: 2853835200362797181, guid: 4bf5e816605deb74e8bdd589446dbcf4, type: 3}
+  ToggleTablet: {fileID: -4762497634481188950, guid: 4bf5e816605deb74e8bdd589446dbcf4, type: 3}
 --- !u!114 &2882999001189594783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -423,10 +427,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eebc8f3dd6ff764498bfa56a5edc2cc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Eyes: {fileID: 0}
-  Hands: {fileID: 0}
-  Controller: {fileID: 0}
-  Look: {fileID: 0}
+  Eyes: {fileID: 2882999001189594778}
+  Hands: {fileID: 2882999001189594780}
+  Controller: {fileID: 2882999001189594774}
+  Look: {fileID: 2882999002900111809}
 --- !u!114 &2044396367900875560
 MonoBehaviour:
   m_ObjectHideFlags: 0

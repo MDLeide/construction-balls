@@ -43,10 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c61ea0310faca4f9902d6a1de560d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllCraftables:
-  - {fileID: 11400000, guid: 548a3df75b0d55f46be8995906b12e92, type: 2}
-  - {fileID: 11400000, guid: fe842869f847a984083d7fba9c753568, type: 2}
-  - {fileID: 11400000, guid: aed285b9978b76846a325e7493f20410, type: 2}
+  AllRecipes: []
 --- !u!1 &2246619522714066848
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,6 +677,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SwitchToGameMode: 0
+  WarnOnInvalidID: 1
+  WarnOnMissingHologram: 1
+  BallPrototypes:
+    Blue: {fileID: 5650046456354834074, guid: e66ea30e24839cb4e9709469363dd387, type: 3}
+    Red: {fileID: 3949340569862302150, guid: da95044c9ba89f0439b37aea06fbbaa3, type: 3}
+    Yellow: {fileID: 3949340569862302150, guid: 81edd3b46c0a8e149a84c25ffed83f8d, type: 3}
+    Green: {fileID: 0}
+    Orange: {fileID: 0}
+    Purple: {fileID: 0}
   Blue: {r: 0.43697366, g: 0.3820755, b: 1, a: 1}
   Red: {r: 1, g: 0.41037738, b: 0.41037738, a: 1}
   Quit: {fileID: -5764401979333101303, guid: 4bf5e816605deb74e8bdd589446dbcf4, type: 3}
@@ -1225,9 +1231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0399909be3fca5949989dca6c5282185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Buildings:
-  - {fileID: 11400000, guid: 5e18f9032f0585441a2b4f1384cd0d8d, type: 2}
-  - {fileID: 11400000, guid: 4b718dc6632090b40a83368d2e95360b, type: 2}
+  Buildings: []
   AvailableBuildings: []
 --- !u!1 &6834019238310828722
 GameObject:

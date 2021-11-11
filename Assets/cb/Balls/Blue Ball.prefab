@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5650046456354834074}
   - component: {fileID: 6898473207527711462}
   - component: {fileID: 3035084047844142635}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Blue Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,6 +51,7 @@ MonoBehaviour:
   RB: {fileID: 6898473207527711462}
   PickUp: {fileID: 0}
   Lifetime: 300
+  MeshRenderer: {fileID: 0}
 --- !u!54 &6898473207527711462
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -81,6 +82,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RB: {fileID: 6898473207527711462}
   Collider: {fileID: 3829534864312480918}
+  IsPlacing: 0
+  IsPlaced: 0
+  IsOnPallet: 0
+  IsLocked: 0
   Type: 1
 --- !u!135 &3829534864312480918
 SphereCollider:
@@ -165,6 +170,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9ace5dc71967b8f4fa0f8d0a6140a28c, type: 3}
       propertyPath: m_Name
       value: blue ball mesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9ace5dc71967b8f4fa0f8d0a6140a28c, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ace5dc71967b8f4fa0f8d0a6140a28c, type: 3}

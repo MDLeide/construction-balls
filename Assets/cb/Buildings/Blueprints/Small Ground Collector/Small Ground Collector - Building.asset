@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b6570736e2e5e4e884815f17a09000, type: 3}
+  m_Name: Small Ground Collector - Building
+  m_EditorClassIdentifier: 
+  ID: 0
+  Blueprint: {fileID: 11400000, guid: bfe2b6387679d274384bf9a2005f06f1, type: 2}
+  RequiredResearch: {fileID: 11400000, guid: 2b009d95451765245a43d1814f9b53e9, type: 2}
+  BuildingHologramPrototype: {fileID: 4531045038327266613, guid: 4fbb3b947285e22408c4787be208d13f, type: 3}
+  LayoutHologramPrototype: {fileID: 4347533127700224227, guid: 6afdd53608b138945bbd9278a41d2f25, type: 3}
+  BuildingPrototype: {fileID: 5300499882556714763, guid: d1bc838dd772a02409616e5018bd03bb, type: 3}
+  BuildingHologramOffsetFromKeyBlock: {x: 0, y: 0, z: -4.5}
+  LayoutOffsetFromKeyBlock: {x: 0, y: 0, z: 0}
+  BuildingOffsetFromKeyBlock: {x: 0, y: 0, z: -4.5}

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b6570736e2e5e4e884815f17a09000, type: 3}
+  m_Name: Craft Station - Building
+  m_EditorClassIdentifier: 
+  ID: 0
+  Blueprint: {fileID: 11400000, guid: 5065240ad7e95164fb66a12c803ded75, type: 2}
+  RequiredResearch: {fileID: 11400000, guid: a349d19e0f418394c870db703eae1894, type: 2}
+  BuildingHologramPrototype: {fileID: 1875087144, guid: 6acfd4a7ecc24a6498ccba46791c8369, type: 3}
+  LayoutHologramPrototype: {fileID: 1455176550, guid: 212fa1ecd7761f14787051d63cba7130, type: 3}
+  BuildingPrototype: {fileID: 1103389722, guid: 9499b359c91d98747baea9aeb3d68366, type: 3}
+  BuildingHologramOffsetFromKeyBlock: {x: 3, y: 0, z: 2}
+  LayoutOffsetFromKeyBlock: {x: 0, y: 0, z: 0}
+  BuildingOffsetFromKeyBlock: {x: 3, y: 0, z: 2}

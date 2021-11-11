@@ -1,5 +1,82 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!64 &3766806395117836480
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49074231647513361}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2649508065670471272, guid: 4cae5539d7ce0334aa98db891dc5d722, type: 3}
+--- !u!114 &3766806395117836511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49074231647513361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebcc20e1138fb4f44ab2aaca29d03c15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Message: Previous Item
+  InteractionCooldown: 0.5
+  BufferInput: 1
+  BufferLength: 0.1
+  PlayAnimation: 1
+  SuccessPushTime: 0.15
+  SuccessReturnTime: 0.5
+  FailurePushTime: 0.1
+  FailureReturnTime: 0.1
+  SuccessPushDistance: 0.04
+  FailurePushDistance: 0.01
+  IsCoolingDown: 0
+  IsAvailable: 1
+--- !u!65 &3766806394940980983
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3010260816333411612}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.020000007, y: 0.020000001, z: 0.0199437}
+  m_Center: {x: -0.00050714065, y: -0.00000047683716, z: -0.000019502357}
+--- !u!114 &3766806394940980981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3010260816333411612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebcc20e1138fb4f44ab2aaca29d03c15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Message: Increase Quantity
+  InteractionCooldown: 0.65
+  BufferInput: 1
+  BufferLength: 0.1
+  PlayAnimation: 1
+  SuccessPushTime: 0.15
+  SuccessReturnTime: 0.5
+  FailurePushTime: 0.1
+  FailureReturnTime: 0.1
+  SuccessPushDistance: 0.04
+  FailurePushDistance: 0.01
+  IsCoolingDown: 0
+  IsAvailable: 1
 --- !u!1 &3766806393075016223
 GameObject:
   m_ObjectHideFlags: 0
@@ -1324,6 +1401,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3766806394238531775}
+  - component: {fileID: 8978060784730983769}
   m_Layer: 0
   m_Name: crafting system
   m_TagString: Untagged
@@ -1347,6 +1425,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
+--- !u!114 &8978060784730983769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3766806394238531774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9347a029b7e5c8741bfd422035b724bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseInventory: 0
+  Inventory: {fileID: 0}
+  Spawner: {fileID: 3766806393356448081}
+  CraftQuantity: 0
+  AvailableRecipes: []
+  HologramPosition: {fileID: 3766806394077507336}
+  CostDisplay: {fileID: 3766806394832248926}
+  ItemNameText: {fileID: 3766806393653379210}
+  QuantityText: {fileID: 3766806393792879176}
+  NextItem: {fileID: 3766806395117836481}
+  PreviousItem: {fileID: 3766806395117836511}
+  CraftItem: {fileID: 3766806395117836484}
+  IncreaseQuantity: {fileID: 3766806394940980981}
+  DecreaseQuantity: {fileID: 3766806394861359809}
+  IsCrafting: 0
 --- !u!1 &3766806394431333325
 GameObject:
   m_ObjectHideFlags: 0
@@ -1595,7 +1700,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3766806394832248925}
-  - component: {fileID: 3766806394832248927}
   - component: {fileID: 3766806394832248926}
   - component: {fileID: 3766806394832248896}
   m_Layer: 0
@@ -1622,69 +1726,6 @@ Transform:
   m_Father: {fileID: 3766806394238531775}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3766806394832248927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3766806394832248924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9347a029b7e5c8741bfd422035b724bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UseInventory: 0
-  Inventory: {fileID: 0}
-  Spawner: {fileID: 3766806393356448081}
-  CraftQuantity: 0
-  CraftableItems:
-  - CraftPrototype: {fileID: 6052348269095930831, guid: 7ccf942657046514bbdf834ab626b330, type: 3}
-    CraftTime: 1
-    Cost:
-      Blue: 10
-      Red: 0
-      Yellow: 0
-      Green: 0
-      Purple: 0
-      Orange: 0
-  - CraftPrototype: {fileID: 2171553403747543580, guid: 8ad70686e26a08449a9e81d2991ef494, type: 3}
-    CraftTime: 1
-    Cost:
-      Blue: 0
-      Red: 10
-      Yellow: 0
-      Green: 0
-      Purple: 0
-      Orange: 0
-  - CraftPrototype: {fileID: 1436418366754006066, guid: 11a89e69fb0a02f4c9a612654d7dc476, type: 3}
-    CraftTime: 1
-    Cost:
-      Blue: 0
-      Red: 0
-      Yellow: 10
-      Green: 0
-      Purple: 0
-      Orange: 0
-  - CraftPrototype: {fileID: 3601236087237564455, guid: 27f6ddf0804c8b64184a630262ae1d9d, type: 3}
-    CraftTime: 1
-    Cost:
-      Blue: 10
-      Red: 0
-      Yellow: 0
-      Green: 0
-      Purple: 0
-      Orange: 0
-  HologramPosition: {fileID: 3766806394077507336}
-  CostDisplay: {fileID: 3766806394832248926}
-  ItemNameText: {fileID: 3766806393653379210}
-  QuantityText: {fileID: 3766806393792879176}
-  NextItem: {fileID: 3766806395117836481}
-  PreviousItem: {fileID: 3766806395117836511}
-  CraftItem: {fileID: 3766806395117836484}
-  IncreaseQuantity: {fileID: 3766806394940980981}
-  DecreaseQuantity: {fileID: 3766806394861359809}
-  IsCrafting: 0
 --- !u!114 &3766806394832248926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1726,44 +1767,6 @@ MonoBehaviour:
   GreenText: {fileID: 0}
   PurpleText: {fileID: 0}
   OrangeText: {fileID: 0}
---- !u!65 &3766806394861359810
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5700633206309135342}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.020000007, y: 0.020000001, z: 0.0060299826}
-  m_Center: {x: -0.0005066638, y: 0, z: -0.000000014901161}
---- !u!114 &3766806394861359809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5700633206309135342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebcc20e1138fb4f44ab2aaca29d03c15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Message: Decrease Craft Quantity
-  InteractionCooldown: 0.65
-  BufferInput: 1
-  BufferLength: 0.1
-  PlayAnimation: 1
-  SuccessPushTime: 0.15
-  SuccessReturnTime: 0.5
-  FailurePushTime: 0.1
-  FailureReturnTime: 0.1
-  SuccessPushDistance: 0.04
-  FailurePushDistance: 0.01
-  IsCoolingDown: 0
-  IsAvailable: 1
 --- !u!1 &3766806394867995590
 GameObject:
   m_ObjectHideFlags: 0
@@ -1867,135 +1870,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 127
---- !u!65 &3766806394940980983
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3010260816333411612}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.020000007, y: 0.020000001, z: 0.0199437}
-  m_Center: {x: -0.00050714065, y: -0.00000047683716, z: -0.000019502357}
---- !u!114 &3766806394940980981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3010260816333411612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebcc20e1138fb4f44ab2aaca29d03c15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Message: Increase Quantity
-  InteractionCooldown: 0.65
-  BufferInput: 1
-  BufferLength: 0.1
-  PlayAnimation: 1
-  SuccessPushTime: 0.15
-  SuccessReturnTime: 0.5
-  FailurePushTime: 0.1
-  FailureReturnTime: 0.1
-  SuccessPushDistance: 0.04
-  FailurePushDistance: 0.01
-  IsCoolingDown: 0
-  IsAvailable: 1
---- !u!64 &3766806395117836480
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 49074231647513361}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2649508065670471272, guid: 4cae5539d7ce0334aa98db891dc5d722, type: 3}
---- !u!114 &3766806395117836511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 49074231647513361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebcc20e1138fb4f44ab2aaca29d03c15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Message: Previous Item
-  InteractionCooldown: 0.5
-  BufferInput: 1
-  BufferLength: 0.1
-  PlayAnimation: 1
-  SuccessPushTime: 0.15
-  SuccessReturnTime: 0.5
-  FailurePushTime: 0.1
-  FailureReturnTime: 0.1
-  SuccessPushDistance: 0.04
-  FailurePushDistance: 0.01
-  IsCoolingDown: 0
-  IsAvailable: 1
---- !u!64 &3766806395117836482
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6598544417990056762}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 6294757649269501562, guid: 4cae5539d7ce0334aa98db891dc5d722, type: 3}
---- !u!114 &3766806395117836481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6598544417990056762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebcc20e1138fb4f44ab2aaca29d03c15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Message: Next Item
-  InteractionCooldown: 0.65
-  BufferInput: 1
-  BufferLength: 0.15
-  PlayAnimation: 1
-  SuccessPushTime: 0.15
-  SuccessReturnTime: 0.5
-  FailurePushTime: 0.1
-  FailureReturnTime: 0.1
-  SuccessPushDistance: 0.04
-  FailurePushDistance: 0.01
-  IsCoolingDown: 0
-  IsAvailable: 1
---- !u!65 &3766806395117836483
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6138783005373913025}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.02, y: 0.0033941187, z: 0.009999998}
-  m_Center: {x: 0, y: -0.008302938, z: 0.004999998}
 --- !u!64 &3766806395117836485
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2026,6 +1900,96 @@ MonoBehaviour:
   InteractionCooldown: 0.5
   BufferInput: 1
   BufferLength: 0.1
+  PlayAnimation: 1
+  SuccessPushTime: 0.15
+  SuccessReturnTime: 0.5
+  FailurePushTime: 0.1
+  FailureReturnTime: 0.1
+  SuccessPushDistance: 0.04
+  FailurePushDistance: 0.01
+  IsCoolingDown: 0
+  IsAvailable: 1
+--- !u!65 &3766806394861359810
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5700633206309135342}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.020000007, y: 0.020000001, z: 0.0060299826}
+  m_Center: {x: -0.0005066638, y: 0, z: -0.000000014901161}
+--- !u!114 &3766806394861359809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5700633206309135342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebcc20e1138fb4f44ab2aaca29d03c15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Message: Decrease Craft Quantity
+  InteractionCooldown: 0.65
+  BufferInput: 1
+  BufferLength: 0.1
+  PlayAnimation: 1
+  SuccessPushTime: 0.15
+  SuccessReturnTime: 0.5
+  FailurePushTime: 0.1
+  FailureReturnTime: 0.1
+  SuccessPushDistance: 0.04
+  FailurePushDistance: 0.01
+  IsCoolingDown: 0
+  IsAvailable: 1
+--- !u!65 &3766806395117836483
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6138783005373913025}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.02, y: 0.0033941187, z: 0.009999998}
+  m_Center: {x: 0, y: -0.008302938, z: 0.004999998}
+--- !u!64 &3766806395117836482
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6598544417990056762}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6294757649269501562, guid: 4cae5539d7ce0334aa98db891dc5d722, type: 3}
+--- !u!114 &3766806395117836481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6598544417990056762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebcc20e1138fb4f44ab2aaca29d03c15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Message: Next Item
+  InteractionCooldown: 0.65
+  BufferInput: 1
+  BufferLength: 0.15
   PlayAnimation: 1
   SuccessPushTime: 0.15
   SuccessReturnTime: 0.5
@@ -2104,21 +2068,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cae5539d7ce0334aa98db891dc5d722, type: 3}
---- !u!1 &6138783005373913025 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7023140328268844824, guid: 4cae5539d7ce0334aa98db891dc5d722, type: 3}
-  m_PrefabInstance: {fileID: 3766806395117836505}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3010260816333411612 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2125974134230846917, guid: 4cae5539d7ce0334aa98db891dc5d722, type: 3}
-  m_PrefabInstance: {fileID: 3766806395117836505}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &4900872639516018305 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -1133491182594974120, guid: 4cae5539d7ce0334aa98db891dc5d722, type: 3}
-  m_PrefabInstance: {fileID: 3766806395117836505}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5700633206309135342 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -334720168012727497, guid: 4cae5539d7ce0334aa98db891dc5d722, type: 3}
@@ -2137,5 +2086,20 @@ GameObject:
 --- !u!1 &6598544417990056762 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1165060914085100573, guid: 4cae5539d7ce0334aa98db891dc5d722, type: 3}
+  m_PrefabInstance: {fileID: 3766806395117836505}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6138783005373913025 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7023140328268844824, guid: 4cae5539d7ce0334aa98db891dc5d722, type: 3}
+  m_PrefabInstance: {fileID: 3766806395117836505}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3010260816333411612 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2125974134230846917, guid: 4cae5539d7ce0334aa98db891dc5d722, type: 3}
+  m_PrefabInstance: {fileID: 3766806395117836505}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4900872639516018305 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1133491182594974120, guid: 4cae5539d7ce0334aa98db891dc5d722, type: 3}
   m_PrefabInstance: {fileID: 3766806395117836505}
   m_PrefabAsset: {fileID: 0}

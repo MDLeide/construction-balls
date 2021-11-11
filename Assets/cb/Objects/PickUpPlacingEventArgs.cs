@@ -3,10 +3,10 @@ using UnityEngine;
 
 class PickUpPlacingEventArgs : EventArgs
 {
-    public PickUpPlacingEventArgs(Vector3 targetLocalPosition)
+    public PickUpPlacingEventArgs(Vector3 targetPosition)
     {
-        TargetLocalPosition = targetLocalPosition;
+        TargetPosition = targetPosition;
     }
 
-    public Vector3 TargetLocalPosition;
+    public Vector3 TargetPosition;
 }
