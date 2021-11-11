@@ -187,9 +187,10 @@ class Block : MonoBehaviour
             ObstructionMask);
     }
 
+    // returns true if a block can be placed on this one, at the
+    // location of the raycast hit (the side the player is looking at)
     public bool CanPlace(RaycastHit hit)
     {
-        // could turn this component on only when the pickup is placed... consideration
         if (!PickUp.IsPlaced || PickUp.IsOnPallet || PickUp.IsPlacing)
             return false;
 
@@ -249,13 +250,6 @@ class Block : MonoBehaviour
 
         blockToBePlaced.CheckForNeighbors();
         blockToBePlaced.CheckForGrounded(target);
-
-        //blockToBePlaced.RaisePlaced();
-    }
-
-    public void RaisePlaced()
-    {
-        // Placed?.Invoke(this, new EventArgs());
     }
 
     void CheckForGrounded(Vector3 targetPosition)
@@ -316,60 +310,17 @@ class Block : MonoBehaviour
 
     public bool IsConnectedTo(Block block)
     {
-        return IsConnectedTo(block, new List<Block> {this});
-    }
-
-    bool IsConnectedTo(Block block, List<Block> checkedBlocks)
-    {
-        if (block == this)
-            return true;
-
-        foreach (var neighbor in Neighbors)
-        {
-            if (neighbor.Value == block)
-                return true;
-
-            if (!checkedBlocks.Contains(neighbor.Value))
-            {
-                checkedBlocks.Add(neighbor.Value);
-                if (neighbor.Value.IsConnectedTo(block, checkedBlocks))
-                    return true;
-            }
-        }
-
-        return false;
+        return BlockNavigator.AreConnected(this, block);
     }
 
     public Block GetTopBlock()
     {
-        var ray = new Ray(MidPoint, Vector3.up);
-        if (Physics.Raycast(ray, out var hit, Game.UnitDistance))
-        {
-            var block = hit.transform.GetComponentAnywhere<Block>();
-            if (block == this)
-                return this;
-
-            if (block != null)
-                return block.GetTopBlock();
-        }
-
-        return this;
+        return BlockNavigator.GetTopBlock(this);
     }
 
     public Block GetBaseBlock()
     {
-        var ray = new Ray(MidPoint, Vector3.down);
-        if (Physics.Raycast(ray, out var hit, Game.UnitDistance))
-        {
-            var block = hit.transform.GetComponentAnywhere<Block>();
-            if (block == this)
-                return this;
-
-            if (block != null)
-                return block.GetBaseBlock();
-        }
-
-        return this;
+        return BlockNavigator.GetBaseBlock(this);
     }
 
     #endregion
