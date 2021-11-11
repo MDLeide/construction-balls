@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b6570736e2e5e4e884815f17a09000, type: 3}
+  m_Name: Basic Storage - Building
+  m_EditorClassIdentifier: 
+  ID: 0
+  Blueprint: {fileID: 11400000, guid: d1cd03cadb7229a4ca06c1eabd410efe, type: 2}
+  RequiredResearch: {fileID: 11400000, guid: 942fc20d74dab4649aa15033c6831011, type: 2}
+  BuildingHologramPrototype: {fileID: 3669447072059830800, guid: 9497f288e1d5d72469cac96731ed183d, type: 3}
+  LayoutHologramPrototype: {fileID: 166495592536195036, guid: 84a0aed30d1a9084e95485099050d48c, type: 3}
+  BuildingPrototype: {fileID: 6054642939128060322, guid: db4504475f977b543b397293a26d07da, type: 3}
+  BuildingHologramOffsetFromKeyBlock: {x: 8, y: 0, z: 2.5}
+  LayoutOffsetFromKeyBlock: {x: 0, y: 0, z: 0}
+  BuildingOffsetFromKeyBlock: {x: 8, y: 0, z: 2.5}

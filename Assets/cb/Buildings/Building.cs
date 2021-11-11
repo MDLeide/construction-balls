@@ -2,6 +2,8 @@
 
 class Building : ScriptableObject
 {
+    public int ID;
+
     [Header("Blueprint")]
     public Blueprint Blueprint;
     public ResearchItem RequiredResearch; 

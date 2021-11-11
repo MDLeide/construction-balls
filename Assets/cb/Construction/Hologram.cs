@@ -47,14 +47,16 @@ class Hologram : MonoBehaviour
         Colliders = this.GetComponentsAnywhere<Collider>().ToArray();
 
         var components = new List<MonoBehaviour>();
-        var pickup = this.GetComponentAnywhere<PickUp>();
-        var interactable = this.GetComponentAnywhere<Interactable>();
-        var block = this.GetComponentAnywhere<Block>();
         
+        var pickup = this.GetComponentAnywhere<PickUp>();
         if (pickup != null)
             components.Add(pickup);
-        if (interactable != null)
+
+        var interactables = this.GetComponentsAnywhere<Interactable>();
+        foreach (var interactable in interactables)
             components.Add(interactable);
+
+        var block = this.GetComponentAnywhere<Block>();
         if (block != null)
             components.Add(block);
 

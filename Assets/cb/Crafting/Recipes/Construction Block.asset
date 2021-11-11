@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Construction Block
   m_EditorClassIdentifier: 
   ID: 1
+  Group: block
   ResearchRequired: {fileID: 11400000, guid: 9484aa50ae845e741abc1fd030d7b7bc, type: 2}
   CraftPrototype: {fileID: 3601236087237564455, guid: 27f6ddf0804c8b64184a630262ae1d9d, type: 3}
   CraftTime: 6

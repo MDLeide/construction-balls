@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 
 class Construction : MonoBehaviour
 {
+    const string AssetPath = "Assets/cb/Buildings/Blueprints";
+
     public static Construction Instance;
 
+    [ReadOnly]
     public Building[] Buildings;
+    [ReadOnly]
     public List<Building> AvailableBuildings;
+
 
     public event EventHandler<NewBuildingEventArgs> NewBuildingAvailable; 
 
@@ -18,9 +25,21 @@ class Construction : MonoBehaviour
         Instance = this;
         Research.Instance.ItemResearched += ItemResearched;
 
+        Buildings = GetAllBuildings();
+
         foreach (var b in Buildings)
+        {
             if (IsAvailable(b))
                 AvailableBuildings.Add(b);
+
+            if (b.ID <= 0 && Game.Instance.WarnOnInvalidID)
+                Debug.LogWarning($"Building has invalid ID: {b.name}");
+        }
+    }
+
+    Building[] GetAllBuildings()
+    {
+        return AssetDatabaseHelper.LoadAssetsFromFolder<Building>(AssetPath);
     }
 
     bool IsAvailable(Building building)
@@ -36,14 +55,4 @@ class Construction : MonoBehaviour
         foreach (var b in newBuildings)
             NewBuildingAvailable?.Invoke(this, new NewBuildingEventArgs(b));
     }
-}
-
-class NewBuildingEventArgs : EventArgs
-{
-    public NewBuildingEventArgs(Building building)
-    {
-        NewBuilding = building;
-    }
-
-    public Building NewBuilding { get; }
 }

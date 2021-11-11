@@ -240,11 +240,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RigidBody: {fileID: 27674524341301309}
-  MaxSpeed: 4
-  MaxReverseSpeed: 1.5
-  Acceleration: 1.25
+  MaxSpeed: 8
+  MaxReverseSpeed: 4
+  Acceleration: 2
   BrakePower: 5
-  SlowDown: 0.5
+  SlowDown: 1
   TurnDegree: 60
   SteerAction: {fileID: 3492009519816206366, guid: 4bf5e816605deb74e8bdd589446dbcf4, type: 3}
   AccelerationAction: {fileID: 2052249957765278651, guid: 4bf5e816605deb74e8bdd589446dbcf4, type: 3}

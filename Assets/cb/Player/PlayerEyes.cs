@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cashew;
 using Cashew.Utility.Extensions;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -11,27 +12,24 @@ using UnityEngine.InputSystem;
 
 class PlayerEyes : MonoBehaviour
 {
+    [Header("Debug")]
+    public bool DrawTargetedCell = true;
+
+    [Header("Settings")]
     public LayerMask LayerMask;
     public Transform LookTransform;
     public float Range;
 
     [Header("In Sights")]
-    [ReadOnly]
     public RaycastHit Hit;
-    [ReadOnly]
     public GameObject HitObject;
+    public GameObject CollidedObject;
     [Space]
-    [ReadOnly]
     public Pallet PalletInSights;
-    [ReadOnly]
     public PickUp PickupInSights;
-    [ReadOnly]
     public Panel PanelInSights;
-    [ReadOnly]
     public Block BlockInSights;
-    [ReadOnly]
     public BuildingBlock BuildingBlockInSights;
-    [ReadOnly]
     public Interactable InteractableInSights;
     
     void Update()
@@ -40,8 +38,9 @@ class PlayerEyes : MonoBehaviour
         if (Physics.Raycast(ray, out var hit, Range, LayerMask))
         {
             HitObject = hit.transform.gameObject;
+            CollidedObject = hit.collider.gameObject;
 
-            PalletInSights = hit.collider.GetComponent<Pallet>();
+            PalletInSights = hit.transform.GetComponent<Pallet>();
             InteractableInSights = hit.collider.GetComponent<Interactable>();
 
             PickupInSights = hit.transform.gameObject.GetComponentAnywhere<PickUp>();
@@ -50,6 +49,9 @@ class PlayerEyes : MonoBehaviour
             PanelInSights = hit.transform.gameObject.GetComponentAnywhere<Panel>();
 
             Hit = hit;
+
+            if (DrawTargetedCell)
+                DrawHelper.DrawBox(GridHelper.GetCenterPointOfCell(hit.point), Game.HalfUnitCube, Color.blue);
         }
         else
         {

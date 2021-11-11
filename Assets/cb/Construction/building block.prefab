@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5053556594565477549}
   - component: {fileID: 2797406704545970373}
   - component: {fileID: 6637455830414602459}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ready to build
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 8694390534396312618}
   - component: {fileID: 7710722777105543044}
   - component: {fileID: 506619047407888176}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ready
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 9133755077001345779}
   - component: {fileID: 4007528435873251173}
   - component: {fileID: 6727533529975929635}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -317,7 +317,9 @@ GameObject:
   - component: {fileID: 8872218964309858449}
   - component: {fileID: 6278712839324192050}
   - component: {fileID: 3361937594819372782}
-  m_Layer: 0
+  - component: {fileID: 2216164752782186522}
+  - component: {fileID: 7969909694398264503}
+  m_Layer: 13
   m_Name: building block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -354,7 +356,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RB: {fileID: 8323572505050185050}
   Collider: {fileID: 8323572505050185051}
+  IsPlacing: 0
   IsPlaced: 0
+  IsOnPallet: 0
+  IsLocked: 0
   Type: 0
 --- !u!54 &8323572505050185050
 Rigidbody:
@@ -397,19 +402,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 672715260191f944d91144b317a6832b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanBeBuilt: 0
-  BuildableFootprint:
-    Definition:
-      Building: {fileID: 0}
-      BuildingName: 
-      Directions: []
-    KeyBlock: {fileID: 0}
-    OtherBlocks: []
+  PickUp: {fileID: 8323572505050185045}
+  NetworkBlock: {fileID: 2216164752782186522}
   CanBeBuiltGraphics: {fileID: 1659069129540477979}
   IsKeyGraphics: {fileID: 8316278328167064834}
-  PickUp: {fileID: 8323572505050185045}
   ReadyToBuildText: {fileID: 6637455830414602459}
   BuildInteractable: {fileID: 6278712839324192050}
+  BuildingBlockLayerMask:
+    serializedVersion: 2
+    m_Bits: 8192
+  UpdateRange: 15
+  Color: 0
+  Blueprint:
+    Building: {fileID: 0}
+    KeyBlock: {fileID: 0}
+    OtherBlocks: []
+    HologramOffset: {x: 0, y: 0, z: 0}
+    Rotations: 0
+  CanBeBuilt: 0
 --- !u!114 &8872218964309858449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,6 +434,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PickUp: {fileID: 8323572505050185045}
   BuildOnTopAction: {fileID: 6947209923573829811, guid: 4bf5e816605deb74e8bdd589446dbcf4, type: 3}
+  BlockMask:
+    serializedVersion: 2
+    m_Bits: 8320
+  ObstructionMask:
+    serializedVersion: 2
+    m_Bits: 15241
+  IdText: {fileID: 0}
+  ShowStableGraphics: 1
+  Unstable: {fileID: 0}
+  Stable: {fileID: 0}
+  TargetPosition: {x: 0, y: 0, z: 0}
+  IsGrounded: 0
 --- !u!114 &6278712839324192050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,6 +483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2ecc60d93fa0c84399a5733c157d30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ApplyScaleChange: 1
   CraftHologramScale: {x: 0.5, y: 0.5, z: 0.5}
   Rigidbody: {fileID: 8323572505050185050}
   Colliders:
@@ -471,6 +494,34 @@ MonoBehaviour:
   - {fileID: 6278712839324192050}
   - {fileID: 8872218964309858449}
   GameObjectsToDisable: []
+  HologramOnStartup: 0
+--- !u!114 &2216164752782186522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8323572505050185049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f81a6118f7a5114f82ac8631adf3439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NetworkOwner: 0
+  Block: {fileID: 8872218964309858449}
+  BlockNetwork: {fileID: 0}
+--- !u!114 &7969909694398264503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8323572505050185049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4057832446e73c498eb0df1a915502c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9011066853005270510
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,7 +534,7 @@ GameObject:
   - component: {fileID: 7037539658504634046}
   - component: {fileID: 6778466679423477651}
   - component: {fileID: 5164192937276695000}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -649,6 +700,18 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fc6edcb4356556c4f8d216f4e8f0b2c3, type: 3}
       propertyPath: m_Name
       value: building block
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fc6edcb4356556c4f8d216f4e8f0b2c3, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3907091372267947420, guid: fc6edcb4356556c4f8d216f4e8f0b2c3, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867937338241767861, guid: fc6edcb4356556c4f8d216f4e8f0b2c3, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 8993622062687877331, guid: fc6edcb4356556c4f8d216f4e8f0b2c3, type: 3}
       propertyPath: m_LocalRotation.w

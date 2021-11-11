@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Pipe Block
   m_EditorClassIdentifier: 
   ID: 2
+  Group: block
   ResearchRequired: {fileID: 11400000, guid: 3e5096c5bb0d3724cbff7ce7e119bd38, type: 2}
   CraftPrototype: {fileID: 6886778010936522951, guid: 6e817903174744f44b37d62d08c535c4, type: 3}
   CraftTime: 10

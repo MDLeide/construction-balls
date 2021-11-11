@@ -11,17 +11,46 @@ using UnityEditor;
 using UnityEngine;
 
 
+class CraftingFinishedEventArgs : EventArgs
+{
+    public CraftingFinishedEventArgs(CraftingRecipe recipe, GameObject result)
+    {
+        Recipe = recipe;
+        Result = result;
+    }
+
+    public CraftingRecipe Recipe { get; }
+    public GameObject Result { get; }
+}
+
+
+class CraftingStartedEventArgs : EventArgs
+{
+    public CraftingStartedEventArgs(CraftingRecipe recipe)
+    {
+        Recipe = recipe;
+    }
+
+    public CraftingRecipe Recipe { get; }
+}
+
 class CraftingStation : MonoBehaviour
 {
     float _finishCraft;
     GameObject _hologramGameObject;
     int _itemIndex;
 
+    [Header("Settings")]
     public bool UseInventory;
+
+    public float CraftTimeMultiplier = 1;
+    public List< string> AllowedGroups = new List<string>
+    {
+        "default"
+    };
+    [Space]
     public BallInventory Inventory;
     public ItemSpawner Spawner;
-
-    public int CraftQuantity;
 
     [Space]
     public List<CraftingRecipe> AvailableRecipes;
@@ -42,17 +71,20 @@ class CraftingStation : MonoBehaviour
     public Interactable DecreaseQuantity;
 
     [Header("State")]
+    public int CraftQuantity;
     [ReadOnly]
     public bool IsCrafting;
     [ShowInInspector, ReadOnly]
     public CraftingRecipe SelectedRecipe => AvailableRecipes.Any() ? AvailableRecipes[_itemIndex] : null;
 
-    public event EventHandler StartedCrafting;
-    public event EventHandler FinishedCrafting;
+    public Func<bool> CanCraft { get; set; } = () => true;
+
+    public event EventHandler<CraftingStartedEventArgs> StartedCrafting;
+    public event EventHandler<CraftingFinishedEventArgs> FinishedCrafting;
 
     void Start()
     {
-        AvailableRecipes = Crafting.Instance.GetAvailableCraftingRecipes().ToList();
+        AvailableRecipes = Crafting.Instance.GetAvailableCraftingRecipes(AllowedGroups).ToList();
 
         Crafting.Instance.NewRecipesAvailable += OnNewRecipesAvailable;
         
@@ -68,7 +100,7 @@ class CraftingStation : MonoBehaviour
     void OnNewRecipesAvailable(object sender, CraftingAvailabilityEventArgs e)
     {
         foreach (var recipe in e.NewRecipes)
-            if (!AvailableRecipes.Contains(recipe))
+            if (!AvailableRecipes.Contains(recipe) && AllowedGroups.Contains(recipe.Group))
                 AvailableRecipes.Add(recipe);
         UpdateSelectedItem();
     }
@@ -80,7 +112,7 @@ class CraftingStation : MonoBehaviour
         // finish crafting
         if (IsCrafting && _finishCraft <= Time.time)
         {
-            Spawner.Spawn();
+            var obj = Spawner.Spawn();
             IsCrafting = false;
             CraftQuantity--;
             if (CraftQuantity > 0)
@@ -88,7 +120,7 @@ class CraftingStation : MonoBehaviour
             if (CraftQuantity < 0)
                 CraftQuantity = 0;
 
-            FinishedCrafting?.Invoke(this, new EventArgs());
+            FinishedCrafting?.Invoke(this, new CraftingFinishedEventArgs(SelectedRecipe, obj));
         }
     }
 
@@ -97,6 +129,12 @@ class CraftingStation : MonoBehaviour
     {
         if (IsCrafting)
             return;
+
+        if (!CanCraft())
+        {
+            CraftQuantity = 0;
+            return;
+        }
 
         if (UseInventory && !Inventory.Pay(SelectedRecipe.Cost))
         {
@@ -107,9 +145,9 @@ class CraftingStation : MonoBehaviour
         if (CraftQuantity == 0)
             CraftQuantity = 1;
 
-        StartedCrafting?.Invoke(this, new EventArgs());
+        StartedCrafting?.Invoke(this, new CraftingStartedEventArgs(SelectedRecipe));
         IsCrafting = true;
-        _finishCraft = Time.time + SelectedRecipe.CraftTime;
+        _finishCraft = Time.time + SelectedRecipe.CraftTime * CraftTimeMultiplier;
     }
 
     void Increase()
@@ -125,6 +163,9 @@ class CraftingStation : MonoBehaviour
 
     void Next()
     {
+        if (IsCrafting)
+            return;
+
         _itemIndex++;
         if (_itemIndex >= AvailableRecipes.Count)
             _itemIndex = 0;
@@ -133,6 +174,9 @@ class CraftingStation : MonoBehaviour
 
     void Previous()
     {
+        if (IsCrafting)
+            return;
+
         _itemIndex--;
         if (_itemIndex < 0)
             _itemIndex = AvailableRecipes.Count - 1;

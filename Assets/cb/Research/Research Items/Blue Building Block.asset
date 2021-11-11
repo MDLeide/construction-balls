@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed06e6025bbde5f40a8330b82deff657, type: 3}
   m_Name: Blue Building Block
   m_EditorClassIdentifier: 
-  ID: 100
+  ID: 101
+  Group: starter
+  ResearchRequired: {fileID: 11400000, guid: 9484aa50ae845e741abc1fd030d7b7bc, type: 2}
   DisplayHologram: {fileID: 1068769106132324472, guid: 7ccf942657046514bbdf834ab626b330, type: 3}
-  TotalSeconds: 60000
+  TotalSeconds: 600

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9101066027956677331}
   - component: {fileID: 7399541227526574229}
   - component: {fileID: 3032615665293838658}
+  - component: {fileID: 1792260277147974143}
   m_Layer: 0
   m_Name: pipe block connection
   m_TagString: Untagged
@@ -39,11 +40,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4756833530643548699}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7b9ff11e00722f4b9681f414999e2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DisplayLineRenderer: 1
   A: {fileID: 0}
   B: {fileID: 0}
   LineRenderer: {fileID: 3032615665293838658}
@@ -150,3 +152,25 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &1792260277147974143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4756833530643548699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4632a23e28975b74d9a7719820e7aa7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DisplayLineRenderer: 1
+  A: {fileID: 0}
+  B: {fileID: 0}
+  Link: {fileID: 0}
+  LineRenderer: {fileID: 3032615665293838658}
+  StraightPipe: {fileID: 7258948088041272557, guid: 3c88798ea49a67441bc6b5defef519a8, type: 3}
+  InclinePipes:
+  - {fileID: 5722655753559739085, guid: 98213895d7211e341a74081d7f2031cc, type: 3}
+  - {fileID: 3568647041131287763, guid: ff85a3b66e5d6134aa9034085aaf1338, type: 3}
+  - {fileID: 5409574661330862757, guid: bf5163d10996149478f65a6cd2f95bfa, type: 3}

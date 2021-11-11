@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 3949340569862302150}
   - component: {fileID: 1331894233935625715}
   - component: {fileID: 5176924107387290230}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Red Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,6 +64,7 @@ MonoBehaviour:
   RB: {fileID: 1331894233935625715}
   PickUp: {fileID: 0}
   Lifetime: 300
+  MeshRenderer: {fileID: 0}
 --- !u!54 &1331894233935625715
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -94,6 +95,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RB: {fileID: 1331894233935625715}
   Collider: {fileID: 4849242484043478773}
+  IsPlacing: 0
+  IsPlaced: 0
+  IsOnPallet: 0
+  IsLocked: 0
   Type: 2
 --- !u!1001 &4501199318909723406
 PrefabInstance:
@@ -165,6 +170,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f4c18569279877a4987d0b725ec3b82e, type: 3}
       propertyPath: m_Name
       value: red ball mesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f4c18569279877a4987d0b725ec3b82e, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4c18569279877a4987d0b725ec3b82e, type: 3}

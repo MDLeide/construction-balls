@@ -43,6 +43,14 @@ class PickUp : MonoBehaviour
 
     public void CancelAnimations()
     {
+        // todo: there are probably several bugs here
+        // for instance, BlockProxy listens for a being placed event
+        // and relies on a subsequent placed event to do some things
+        // if the animations are canceled and placed is not called
+        // we will get bad behavior
+        // that doesn't happen anywhere, yet, but should be considered
+        // if this gets called somewhere else in the future
+
         TweenFactory.Tween(
             _placeRotationKey,
             0,
@@ -91,6 +99,8 @@ class PickUp : MonoBehaviour
 
     public void Release()
     {
+        CancelAnimations();
+
         transform.parent = null;
 
         RB.isKinematic = false;
@@ -108,54 +118,72 @@ class PickUp : MonoBehaviour
         Released?.Invoke(this, new EventArgs());
     }
 
-    public void Place(Transform targetTransform)
+    public void Place(Transform targetTransform, bool useLocalPosition = false)
     {
-        Place(targetTransform.position, targetTransform.rotation);
+        Place(targetTransform.position, targetTransform.rotation, useLocalPosition);
     }
 
-    public void Place(Vector3 localPosition, Quaternion? rotation = null)
+    public void Place(Vector3 position, Quaternion? rotation = null, bool useLocalPosition = false)
     {
-        // an object is always placed from the hands, so the rigidbody is already kinematic
-        // we will switch convex off for mesh colliders now so they can interact with balls properly
-        //if (Collider != null)
-        //{
-        //    var meshCollider = Collider.GetComponent<MeshCollider>();
-
-        //    if (meshCollider != null)
-        //        meshCollider.convex = false;
-        //}
-
         IsPlacing = true;
-        BeingPlaced?.Invoke(this, new PickUpPlacingEventArgs(localPosition));
+        BeingPlaced?.Invoke(this, new PickUpPlacingEventArgs(position));
 
-        var distance = (localPosition - transform.localPosition).magnitude;
-        TweenFactory.Tween(
-            _placePositionKey,
-            transform.localPosition,
-            localPosition,
-            distance / PickUpSpeed,
-//            .25f,
-            TweenScaleFunctions.CubicEaseInOut,
-            p => transform.localPosition = p.CurrentValue,
-            p =>
-            {
-                IsPlacing = false;
-                IsPlaced = true;
-                RB.isKinematic = true;
-                if (Collider != null)
-                    Collider.enabled = true;
-                Placed?.Invoke(this, new EventArgs());
-            });
+        var distance = (position - transform.position).magnitude;
+
+        if (useLocalPosition)
+            TweenFactory.Tween(
+                _placePositionKey,
+                transform.localPosition,
+                position,
+                distance / PickUpSpeed, // duration
+                TweenScaleFunctions.CubicEaseInOut,
+                p => transform.localPosition = p.CurrentValue,
+                p =>
+                {
+                    IsPlacing = false;
+                    IsPlaced = true;
+                    RB.isKinematic = true;
+                    if (Collider != null)
+                        Collider.enabled = true;
+                    Placed?.Invoke(this, new EventArgs());
+                });
+        else
+            TweenFactory.Tween(
+                _placePositionKey,
+                transform.position,
+                position,
+                distance / PickUpSpeed, // duration
+                TweenScaleFunctions.CubicEaseInOut,
+                p => transform.position = p.CurrentValue,
+                p =>
+                {
+                    IsPlacing = false;
+                    IsPlaced = true;
+                    RB.isKinematic = true;
+                    if (Collider != null)
+                        Collider.enabled = true;
+                    Placed?.Invoke(this, new EventArgs());
+                });
 
         if (rotation.HasValue)
-            TweenFactory.Tween(
-                _placeRotationKey,
-                transform.rotation,
-                rotation.Value,
-                distance / PickUpSpeed,
-                //.25f,
-                TweenScaleFunctions.CubicEaseInOut,
-                p => transform.rotation = p.CurrentValue);
+        {
+            if (useLocalPosition)
+                TweenFactory.Tween(
+                    _placeRotationKey,
+                    transform.localRotation,
+                    rotation.Value,
+                    distance / PickUpSpeed,
+                    TweenScaleFunctions.CubicEaseInOut,
+                    p => transform.localRotation = p.CurrentValue);
+            else
+                TweenFactory.Tween(
+                    _placeRotationKey,
+                    transform.rotation,
+                    rotation.Value,
+                    distance / PickUpSpeed,
+                    TweenScaleFunctions.CubicEaseInOut,
+                    p => transform.rotation = p.CurrentValue);
+        }
     }
 
     void Reset()

@@ -28,7 +28,8 @@ static class TerminalCommands
         }
         else
         {
-            Component.Research.ResearchItem(args[0].String);
+            var name = string.Concat(args.Select(p => p.String));
+            Component.Research.ResearchItem(name);
         }
     }
 
@@ -77,14 +78,14 @@ static class TerminalCommands
 
         if (int.TryParse(args[0].String, out var id))
         {
-            recipe = Component.Crafting.AllCraftables.FirstOrDefault(p => p.ID == id);
+            recipe = Component.Crafting.AllRecipes.FirstOrDefault(p => p.ID == id);
             if (recipe == null)
                 Debug.Log($"Could not find a recipe with the ID: {id}");
         }
         else
         {
             var itemName = args[0].String;
-            recipe = Component.Crafting.AllCraftables.FirstOrDefault(p => NamesMatch(p.CraftPrototype.name, itemName));
+            recipe = Component.Crafting.AllRecipes.FirstOrDefault(p => NamesMatch(p.CraftPrototype.name, itemName));
             if (recipe == null)
                 Debug.Log($"Could not find a recipe with the name: {itemName}");
         }

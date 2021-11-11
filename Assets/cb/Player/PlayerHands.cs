@@ -10,6 +10,8 @@ using UnityEngine.InputSystem;
 
 class PlayerHands : MonoBehaviour
 {
+    const int ActionCooldownFrames = 10;
+    int _nextFrame;
     bool _sameFrame;
 
     public PlayerEyes Eyes;
@@ -84,6 +86,9 @@ class PlayerHands : MonoBehaviour
         Grab(top.PickUp);
     }
 
+    // forces a grab, does not validate input
+    // called after validation in other methods,
+    // also used for reloading
     public void Grab(PickUp pickup)
     {
         if (HeldObject != null)
@@ -140,8 +145,10 @@ class PlayerHands : MonoBehaviour
 
     public void PlaceOnBlock()
     {
-        if (!CanPlaceOnBlock())
+        if (!CanPlaceOnBlock() || _nextFrame > Time.frameCount)
             return;
+
+        _nextFrame = Time.frameCount + ActionCooldownFrames;
 
         var args = new PickUpMovedEventArgs(HeldObject);
 
@@ -182,12 +189,14 @@ class PlayerHands : MonoBehaviour
 
     public bool CanThrow()
     {
-        return HeldObject != null;
+        return enabled && 
+               HeldObject != null;
     }
     
     public bool CanPlaceOnBlock()
     {
-        return HeldBlock != null &&
+        return enabled &&
+               HeldBlock != null &&
                Eyes.BlockInSights != null &&
                Eyes.BlockInSights.CanPlace(Eyes.Hit) && 
                 !_sameFrame;
@@ -195,7 +204,8 @@ class PlayerHands : MonoBehaviour
 
     public bool CanPlaceOnPallet()
     {
-        return HeldObject != null &&
+        return enabled && 
+               HeldObject != null &&
                Eyes.PalletInSights != null &&
                Eyes.PalletInSights.CanPlace(HeldObject) &&
                Eyes.InteractableInSights == null && // prefer to interact
@@ -204,14 +214,17 @@ class PlayerHands : MonoBehaviour
 
     public bool CanPlaceOnGround()
     {
-        return HeldBlock != null && 
+        return enabled && 
+               HeldBlock != null && 
                Eyes.PanelInSights != null && 
+               Eyes.PanelInSights.CanPlace(Eyes.Hit) &&
                !_sameFrame;
     }
 
     public bool CanTake()
     {
-        return HeldObject == null && 
+        return enabled && 
+               HeldObject == null && 
                Eyes.PalletInSights != null &&
                Eyes.PalletInSights.CanTake() && 
                !_sameFrame;
@@ -219,13 +232,15 @@ class PlayerHands : MonoBehaviour
 
     public bool CanRelease()
     {
-        return HeldObject != null &&
+        return enabled && 
+               HeldObject != null &&
                !_sameFrame;
     }
 
     public bool CanGrab()
     {
-        return Eyes.PalletInSights == null && 
+        return enabled && 
+               Eyes.PalletInSights == null && 
                Eyes.PickupInSights != null && 
                !Eyes.PickupInSights.IsLocked &&
                !_sameFrame;
@@ -233,7 +248,8 @@ class PlayerHands : MonoBehaviour
 
     public bool CanInteract()
     {
-        return Eyes.InteractableInSights != null && 
+        return enabled && 
+               Eyes.InteractableInSights != null && 
                !_sameFrame;
     }
 }

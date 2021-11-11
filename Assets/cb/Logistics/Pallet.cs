@@ -33,14 +33,12 @@ class Pallet : MonoBehaviour
         PlacementLocation location = null;
 
         for (int i = 0; i < PlacementLocations.Length; i++)
-        {
             if (PlacementLocations[i].Occupant == null)
             {
                 location = PlacementLocations[i];
                 break;
             }
-        }
-
+        
         if (location == null)
             return false;
 
@@ -49,10 +47,7 @@ class Pallet : MonoBehaviour
         pickup.IsOnPallet = true;
         pickup.transform.parent = location.transform;
         pickup.PickedUp += OnPickedUp;
-
-        //var pos = location.transform.position - pickup.transform.position + pickup.transform.localPosition;
-        var pos = Vector3.zero;
-        pickup.Place(pos, Quaternion.Euler(LocationRotation + transform.rotation.eulerAngles));
+        pickup.Place(Vector3.zero, Quaternion.identity, true);
         return true;
     }
 

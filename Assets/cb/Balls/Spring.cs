@@ -5,13 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 class Spring : MonoBehaviour
 {
     float _nextSpawn;
 
     [Header("Spawn")]
-    public Ball Ball;
+    public bool Randomize = true;
+    public BallColor Color;
     public Transform SpawnLocation;
     [Space]
     public float Interval;
@@ -26,13 +28,31 @@ class Spring : MonoBehaviour
     void Start()
     {
         _nextSpawn = Time.time;
+
+        if (Randomize)
+        {
+            var val = Random.value;
+
+            if (val <= .4f)
+            {
+                Color = BallColor.Blue;
+            }
+            else if (val <= .7f)
+            {
+                Color = BallColor.Red;
+            }
+            else
+            {
+                Color = BallColor.Yellow;
+            }
+        }
     }
 
     void Update()
     {
         if (_nextSpawn <= Time.time)
         {
-            var ball = Instantiate(Ball, Game.Instance.BallContainer);
+            var ball = Instantiate(GetPrototype(), Game.Instance.BallContainer);
             ball.transform.position = SpawnLocation.position;
             _nextSpawn += Interval;
 
@@ -54,5 +74,10 @@ class Spring : MonoBehaviour
             x + .25f,
             0,
             z + .25f);
+    }
+
+    Ball GetPrototype()
+    {
+        return Game.Instance.BallPrototypes.GetPrototype(Color);
     }
 }

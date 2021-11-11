@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Cashew.Utility.Extensions;
 using Sirenix.OdinInspector;
+using Sirenix.OdinInspector.Editor;
 using TMPro;
 using UnityEngine;
 
@@ -12,15 +13,15 @@ class ResearchStation : MonoBehaviour
 {
     GameObject _hologramGameObject;
     int _itemIndex;
+    float _nextBlink;
 
-    public BallInventory Inventory;
-    
-    [Space]
-    public List<ResearchItemWrapper> ResearchableItems;
+    [Header("Settings")]
+    public float LabRange = 25;
+
+    public List<string> AllowedGroups = new List<string> {"default"};
 
     [Header("Graphics")]
     public Transform HologramPosition;
-    public CostDisplay CostDisplay;
     public TMP_Text ItemNameText;
     public TMP_Text TimeRemainingText;
 
@@ -32,89 +33,98 @@ class ResearchStation : MonoBehaviour
     [ShowInInspector, ReadOnly]
     public ResearchItemWrapper SelectedResearch => ResearchableItems.Any() ? ResearchableItems[_itemIndex] : null;
 
+    [ShowInInspector, ReadOnly]
+    public List<ResearchLab> ConnectedLabs { get; } = new List<ResearchLab>();
+
+    [ShowInInspector, ReadOnly]
+    public List<ResearchItemWrapper> ResearchableItems { get; private set; } = new List<ResearchItemWrapper>();
+
 
     void Start()
     {
-        ResearchableItems = global::Research.Instance.GetResearchable().ToList();
-
-        global::Research.Instance.ItemResearched += (sender, args) =>
-        {
-            ResearchableItems = global::Research.Instance.GetResearchable().ToList();
-            if (_itemIndex >= ResearchableItems.Count)
-                _itemIndex--;
-            UpdateSelectedItem();
-        };
-
-        Inventory.BallReceived += InventoryOnBallReceived;
-
-        UpdateSelectedItem();
-
+        NextItem.CanPush = () => ResearchableItems.Count > 1;
         NextItem.Pushed += (sender, args) => Next();
+
+        PreviousItem.CanPush = () => ResearchableItems.Count > 1;
         PreviousItem.Pushed += (sender, args) => Previous();
-        DoResearch.Pushed += (sender, args) => Research();
 
-        // using this to display how many seconds each color ball will contribue to research
-        CostDisplay.Cost = new BallCost()
-        {
-            Blue = 1,
-            Red = 3,
-            Yellow = 10,
-        };
+        DoResearch.CanPush = () => SelectedResearch != null && SelectedResearch.IsFinished;
+        DoResearch.Pushed += (sender, args) => FinishResearch();
+
+        Research.Instance.ItemResearched += ItemResearched;
+
+        UpdateResearchableItems();
+        UpdateSelectedItem();
+        UpdateLabs();
     }
-
-    void InventoryOnBallReceived(object sender, BallInventoryChangedEventArgs e)
-    {
-        if (SelectedResearch != null)
-            SelectedResearch.SecondsElapsed += GetSeconds(e.Color) * e.Change;
-    }
-
-    int GetSeconds(BallColor color)
-    {
-        switch (color)
-        {
-            case BallColor.Blue:
-                return 1;
-            case BallColor.Red:
-                return 3;
-            case BallColor.Yellow:
-                return 10;
-            case BallColor.Green:
-                break;
-            case BallColor.Purple:
-                break;
-            case BallColor.Orange:
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(color), color, null);
-        }
-
-        return 0;
-    }
-
+    
     void Update()
     {
         if (SelectedResearch != null)
         {
-            SelectedResearch.SecondsElapsed += Time.deltaTime;
-            var ts = TimeSpan.FromSeconds(SelectedResearch.ResearchItem.TotalSeconds - SelectedResearch.SecondsElapsed);
-            TimeRemainingText.text = $"{ts.Hours:D2}:{ts.Minutes:D2}:{ts.Seconds:D2}";
+            if (SelectedResearch.SecondsElapsed >= SelectedResearch.ResearchItem.TotalSeconds)
+            {
+                TimeRemainingText.text = "READY";
+
+                if (_nextBlink <= Time.time)
+                {
+                    TimeRemainingText.enabled = !TimeRemainingText.enabled;
+                    if (TimeRemainingText.enabled)
+                        _nextBlink = Time.time + 2f;
+                    else
+                        _nextBlink = Time.time + .25f;
+                }
+            }
+            else
+            {
+                TimeRemainingText.enabled = true;
+                SelectedResearch.SecondsElapsed += Time.deltaTime;
+                var ts = TimeSpan.FromSeconds(SelectedResearch.ResearchItem.TotalSeconds - SelectedResearch.SecondsElapsed);
+                TimeRemainingText.text = $"{ts.Hours:D2}:{ts.Minutes:D2}:{ts.Seconds:D2}";
+            }
         }
         else
         {
+            TimeRemainingText.enabled = true;
             TimeRemainingText.text = "--:--:--";
         }
     }
 
-
     [Button]
-    public void Research()
+    public void FinishResearch()
     {
-        if (SelectedResearch.SecondsElapsed >= SelectedResearch.ResearchItem.TotalSeconds)
+        if (SelectedResearch != null && SelectedResearch.IsFinished)
+            Research.Instance.ResearchItem(SelectedResearch);
+    }
+
+    public void UpdateLabs()
+    {
+        var colliders = Physics.OverlapBox(transform.position, new Vector3(LabRange, LabRange, LabRange));
+        foreach (var collider in colliders)
         {
-            global::Research.Instance.ResearchItem(SelectedResearch);
+            var lab = collider.transform.GetComponentAnywhere<ResearchLab>();
+            if (lab != null)
+                lab.UpdateStationsInRange();
         }
     }
-    
+
+    void ItemResearched(object sender, ResearchEventArgs e)
+    {
+        UpdateResearchableItems();
+
+        if (_itemIndex >= ResearchableItems.Count)
+            _itemIndex--;
+
+        UpdateSelectedItem();
+    }
+
+    void UpdateResearchableItems()
+    {
+        ResearchableItems = Research.Instance.GetResearchable()
+            .Where(p => AllowedGroups.Contains(p.ResearchItem.Group))
+            .ToList();
+    }
+
     void Next()
     {
         _itemIndex++;
@@ -136,11 +146,17 @@ class ResearchStation : MonoBehaviour
         Destroy(_hologramGameObject);
 
         if (SelectedResearch == null)
+        {
+            ItemNameText.text = "No Research Available";
             return;
+        }
 
-        _hologramGameObject = Instantiate(SelectedResearch.ResearchItem.DisplayHologram, HologramPosition).gameObject;
-        _hologramGameObject.GetComponentAnywhere<Hologram>().SwitchToHologram();
+        ItemNameText.text = SelectedResearch.ResearchItem.name;
 
-        ItemNameText.text = SelectedResearch.ResearchItem.DisplayHologram.name;
+        if (SelectedResearch.ResearchItem.DisplayHologram != null)
+        {
+            _hologramGameObject = Instantiate(SelectedResearch.ResearchItem.DisplayHologram, HologramPosition).gameObject;
+            _hologramGameObject.GetComponentAnywhere<Hologram>().SwitchToHologram();
+        }
     }
 }

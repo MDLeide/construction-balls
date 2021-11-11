@@ -1,6 +1,8 @@
-﻿using Cashew.Utility.Extensions;
+﻿using System;
+using Cashew.Utility.Extensions;
 using UnityEngine;
 
+[Obsolete]
 class PipeBlockConnection : MonoBehaviour
 {
     public bool DisplayLineRenderer = true;
@@ -104,6 +106,8 @@ class PipeBlockConnection : MonoBehaviour
 
     Vector3 GetMidPoint()
     {
+        // i have no idea what is going on here...
+
         var magnitude = (B.transform.position - A.transform.position).magnitude;
         var a = A.transform.position +
                 (B.transform.position - A.transform.position) * (A.RadiusInWorldUnits / magnitude);

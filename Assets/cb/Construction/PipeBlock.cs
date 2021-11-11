@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Cashew.Utility.Extensions;
 using DigitalRuby.Tween;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
+[Obsolete]
 class PipeBlock : MonoBehaviour
 {
     [Header("Config")]
@@ -294,45 +294,6 @@ class PipeBlock : MonoBehaviour
         {
             NoPipe = new GameObject("disconnected");
             NoPipe.transform.parent = transform;
-        }
-    }
-}
-
-static class Compass
-{
-    [DebuggerStepThrough]
-    public static Vector3 CompassDirectionToVector(CompassDirection direction)
-    {
-        switch (direction)
-        {
-            case CompassDirection.North:
-                return new Vector3(0, 0, 1);
-            case CompassDirection.East:
-                return new Vector3(1, 0, 0);
-            case CompassDirection.South:
-                return new Vector3(0, 0, -1);
-            case CompassDirection.West:
-                return new Vector3(-1, 0, 0);
-            default:
-                throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
-        }
-    }
-
-    [DebuggerStepThrough]
-    public static CompassDirection GetOpposingDirection(CompassDirection direction)
-    {
-        switch (direction)
-        {
-            case CompassDirection.North:
-                return CompassDirection.South;
-            case CompassDirection.East:
-                return CompassDirection.West;
-            case CompassDirection.South:
-                return CompassDirection.North;
-            case CompassDirection.West:
-                return CompassDirection.East;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
         }
     }
 }

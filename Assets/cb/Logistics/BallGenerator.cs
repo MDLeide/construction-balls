@@ -12,12 +12,12 @@ class BallGenerator : MonoBehaviour
 
     public Vector3 ForceToApply = Vector3.forward;
     public Rigidbody BallPrototype;
-    public PipeBlock InternalPipeBlock;
+    public PBlock InternalPipeBlock;
     public float BallDelay = 2f;
 
     void Reset()
     {
-        InternalPipeBlock = gameObject.GetComponentInChildren<PipeBlock>();
+        InternalPipeBlock = gameObject.GetComponentInChildren<PBlock>();
     }
 
     void Update()
